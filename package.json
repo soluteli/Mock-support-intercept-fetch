@@ -1,5 +1,5 @@
 {
-  "name": "mockjs",
+  "name": "@zjffun/mockjs",
   "title": "Mock.js",
   "description": "生成随机数据 & 拦截 Ajax 请求",
   "version": "1.0.1-beta3",

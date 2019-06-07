@@ -6,8 +6,11 @@ var RE = require('./mock/regexp')
 var toJSONSchema = require('./mock/schema')
 var valid = require('./mock/valid')
 
-var XHR
-if (typeof window !== 'undefined') XHR = require('./mock/xhr')
+var XHR, MockFetch
+if (typeof window !== 'undefined') {
+    XHR = require('./mock/xhr')
+    MockFetch = require('./mock/fetch')
+}
 
 /*!
     Mock - 模拟请求 & 模拟数据
@@ -33,6 +36,7 @@ Mock.version = '1.0.1-beta3'
 
 // 避免循环依赖
 if (XHR) XHR.Mock = Mock
+if (MockFetch) MockFetch.Mock = Mock
 
 /*
     * Mock.mock( template )
@@ -55,7 +59,10 @@ Mock.mock = function(rurl, rtype, template) {
         rtype = undefined
     }
     // 拦截 XHR
-    if (XHR) window.XMLHttpRequest = XHR
+    if (XHR) {
+        window.XMLHttpRequest = XHR
+        window.fetch = MockFetch
+    }
     Mock._mocked[rurl + (rtype || '')] = {
         rurl: rurl,
         rtype: rtype,
