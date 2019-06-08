@@ -121,7 +121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    Mock._mocked[rurl + (rtype || '')] = {
 	        rurl: rurl,
-	        rtype: rtype,
+	        rtype: rtype.toLowerCase(),
 	        template: template
 	    }
 	    return Mock
