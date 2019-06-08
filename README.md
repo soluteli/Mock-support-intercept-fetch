@@ -1,4 +1,4 @@
-支持截获 `fetch`，其他用法和主仓库一样，增加的的代码参见 [Support intercept fetch · zjffun/Mock-support-intercept-fetch@3a71000](https://github.com/zjffun/Mock-support-intercept-fetch/commit/3a71000aa125f79b4cd67cc971eab9574aaea834)
+支持截获 `fetch`，其他用法和主仓库一样，增加的代码参见 [Support intercept fetch · zjffun/Mock-support-intercept-fetch@3a71000](https://github.com/zjffun/Mock-support-intercept-fetch/commit/3a71000aa125f79b4cd67cc971eab9574aaea834)
 
 Support intercept `fetch`, other using are same as main repo.
 
