@@ -2,6 +2,13 @@
 
 Support intercept `fetch`, other using are same as main repo.
 
+使用：
+
+```bash
+npm install @zjffun/mockjs
+```
+
+
 # Mock.js
 <!-- 模拟请求 & 模拟数据 -->
 [![Build Status](https://travis-ci.org/nuysoft/Mock.svg?branch=refactoring)](https://travis-ci.org/nuysoft/Mock)
