@@ -65,7 +65,7 @@ Mock.mock = function(rurl, rtype, template) {
     }
     Mock._mocked[rurl + (rtype || '')] = {
         rurl: rurl,
-        rtype: rtype.toLowerCase(),
+        rtype: Util.isString(rtype) ? rtype.toLowerCase() : rtype,
         template: template
     }
     return Mock
