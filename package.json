@@ -32,7 +32,8 @@
   "main": "./dist/mock.js",
   "scripts": {
     "test": "gulp mocha",
-    "coveralls": "gulp coveralls"
+    "coveralls": "gulp coveralls",
+    "build": "gulp webpack"
   },
   "bin": {
     "random": "bin/random"
