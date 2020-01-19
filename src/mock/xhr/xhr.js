@@ -234,6 +234,24 @@ Util.extend(MockXMLHttpRequest.prototype, {
         }
 
         // 找到了匹配的数据模板，开始拦截 XHR 请求
+        // sendRequest 为 true，拦截同时发送请求
+        if(item.sendRequest){
+            // 创建原生 XHR 对象，调用原生 open()，监听所有原生事件
+            var xhr = createNativeXMLHttpRequest()
+            this.custom.xhr = xhr
+
+            // xhr.open()
+            if (username) xhr.open(method, url, async, username, password)
+            else xhr.open(method, url, async)
+
+            // 同步属性 MockXMLHttpRequest => NativeXMLHttpRequest
+            for (var j = 0; j < XHR_REQUEST_PROPERTIES.length; j++) {
+                try {
+                    xhr[XHR_REQUEST_PROPERTIES[j]] = that[XHR_REQUEST_PROPERTIES[j]]
+                } catch (e) {}
+            }
+        }
+
         this.match = true
         this.custom.template = item
         this.readyState = MockXMLHttpRequest.OPENED
@@ -269,6 +287,10 @@ Util.extend(MockXMLHttpRequest.prototype, {
         }
 
         // 拦截 XHR
+        // 拦截同时发送请求
+        if(this.custom.xhr){
+            this.custom.xhr.send(data)
+        }
 
         // X-Requested-With header
         this.setRequestHeader('X-Requested-With', 'MockXMLHttpRequest')

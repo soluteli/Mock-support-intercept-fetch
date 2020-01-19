@@ -34,6 +34,11 @@ var Mock = {
 
 Mock.version = '1.0.1-beta3'
 
+/*
+    flag - whether send intercepted request
+*/
+Mock.sendRequest = false
+
 // 避免循环依赖
 if (XHR) XHR.Mock = Mock
 if (MockFetch) MockFetch.Mock = Mock
@@ -66,7 +71,8 @@ Mock.mock = function(rurl, rtype, template) {
     Mock._mocked[rurl + (rtype || '')] = {
         rurl: rurl,
         rtype: Util.isString(rtype) ? rtype.toLowerCase() : rtype,
-        template: template
+        template: template,
+        sendRequest: Mock.sendRequest
     }
     return Mock
 }

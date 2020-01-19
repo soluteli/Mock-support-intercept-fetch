@@ -27,6 +27,11 @@ function MockFetch(resource, init) {
     }
 
     // 找到了匹配的数据模板，拦截 fetch 请求
+    // sendRequest 为 true，拦截同时发送请求
+    if(item.sendRequest){
+        window._fetch(resource, init)
+    }
+
     return Promise.resolve(
         new Response(JSON.stringify(convert(item, tempReq)), {
             status: MockFetch.UNSENT,

@@ -3,7 +3,7 @@
 var expect = chai.expect
 var Mock, _
 
-describe('Request', function() {
+describe('Fetch', function() {
     before(function(done) {
         require(['mock', 'underscore'], function() {
             Mock = arguments[0]

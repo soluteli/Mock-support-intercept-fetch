@@ -90,6 +90,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Mock.version = '1.0.1-beta3'
 
+	/*
+	    flag - whether send intercepted request
+	*/
+	Mock.sendRequest = false
+
 	// 避免循环依赖
 	if (XHR) XHR.Mock = Mock
 	if (MockFetch) MockFetch.Mock = Mock
@@ -122,7 +127,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Mock._mocked[rurl + (rtype || '')] = {
 	        rurl: rurl,
 	        rtype: Util.isString(rtype) ? rtype.toLowerCase() : rtype,
-	        template: template
+	        template: template,
+	        sendRequest: Mock.sendRequest
 	    }
 	    return Mock
 	}
@@ -8334,6 +8340,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        // 找到了匹配的数据模板，开始拦截 XHR 请求
+	        // sendRequest 为 true，拦截同时发送请求
+	        if(item.sendRequest){
+	            // 创建原生 XHR 对象，调用原生 open()，监听所有原生事件
+	            var xhr = createNativeXMLHttpRequest()
+	            this.custom.xhr = xhr
+
+	            // xhr.open()
+	            if (username) xhr.open(method, url, async, username, password)
+	            else xhr.open(method, url, async)
+
+	            // 同步属性 MockXMLHttpRequest => NativeXMLHttpRequest
+	            for (var j = 0; j < XHR_REQUEST_PROPERTIES.length; j++) {
+	                try {
+	                    xhr[XHR_REQUEST_PROPERTIES[j]] = that[XHR_REQUEST_PROPERTIES[j]]
+	                } catch (e) {}
+	            }
+	        }
+
 	        this.match = true
 	        this.custom.template = item
 	        this.readyState = MockXMLHttpRequest.OPENED
@@ -8369,6 +8393,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        // 拦截 XHR
+	        // 拦截同时发送请求
+	        if(this.custom.xhr){
+	            this.custom.xhr.send(data)
+	        }
 
 	        // X-Requested-With header
 	        this.setRequestHeader('X-Requested-With', 'MockXMLHttpRequest')
@@ -8541,6 +8569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = MockXMLHttpRequest
 
+
 /***/ }),
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -8581,6 +8610,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    // 找到了匹配的数据模板，拦截 fetch 请求
+	    // sendRequest 为 true，拦截同时发送请求
+	    if(item.sendRequest){
+	        window._fetch(resource, init)
+	    }
+
 	    return Promise.resolve(
 	        new Response(JSON.stringify(convert(item, tempReq)), {
 	            status: MockFetch.UNSENT,

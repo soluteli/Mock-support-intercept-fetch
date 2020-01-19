@@ -1,5 +1,9 @@
 # Changelog
 
+## 2019.6.9 1.1.0
+
+1. 支持 fetch
+
 ## 2015.12.03 V0.2.0-alpha2
 
 1. 改用 webpack 打包
