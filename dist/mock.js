@@ -88,7 +88,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _mocked: {}
 	}
 
-	Mock.version = '1.0.1-beta3'
+	Mock.version = '1.2.0'
 
 	/*
 	    flag - whether send intercepted request

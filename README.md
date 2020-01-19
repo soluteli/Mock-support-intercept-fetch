@@ -8,6 +8,13 @@ Support intercept `fetch`, other using are same as main repo.
 npm install @zjffun/mockjs
 ```
 
+- 2020-1-19: 支持截获请求的同时发送请求，方便在“控制台-网络”中查看具体请求信息。
+
+使用：
+```bash
+// 设置模板前开启 sendRequest
+Mock.sendRequest = true;
+```
 
 # Mock.js
 <!-- 模拟请求 & 模拟数据 -->
